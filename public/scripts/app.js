@@ -1,12 +1,25 @@
 "use strict";
 
-// let vs const 
-// let allow you to re-assign the variable value 
-// const is used to assigned the constant value or something that value remains same or read-only
-var title = "TestingApp";
-title = "New title";
-console.log(title);
+var userDetails = {
+    name: "Sanz",
+    cities: "['NewYork', 'Sydney', 'Tokyo']",
+    details: function details() {
+        return this.name + this.cities;
+    }
+};
 
-var appName = "React Course";
-// appName ="React"; // throw Error 
-console.log(appName);
+var userDetails2 = {
+    name: 'Purnima',
+    cities: ['NewYork', 'Sydney', 'Tokyo'],
+    printFavPlaces: function printFavPlaces() {
+        var _this = this;
+
+        var messages = this.cities.map(function (city) {
+            return _this.name + 'has lived in ' + city;
+        });
+
+        return messages;
+    }
+};
+
+console.log(userDetails2.printFavPlaces());

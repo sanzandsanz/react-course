@@ -1,12 +1,18 @@
 console.log("App.js is running !!")
 
+var validTemplate = <div><h1> Heading </h1> <p> Sub-title </p></div>;
+var inValidTemplate = <h1> Heading </h1> <p> Sub-title </p>
+
+
+
 // JSX - JavaScript XML
 var template = (
     <div>
         <h1> There should be only 1 single root element !! </h1> 
         <p> both heading and paragraph tag are now included within the div single root element. If DIV element is not added then 
             we will endup with two root elements H1 and P tags and it will give compile error </p>
-    </div>);
+    </div>
+    );
 var appRoot = document.getElementById("app");
 
 var user = {
