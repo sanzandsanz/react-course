@@ -1,50 +1,60 @@
-console.log("App.js is running !!")
-
-var validTemplate = <div><h1> Heading </h1> <p> Sub-title </p></div>;
-var inValidTemplate = <h1> Heading </h1> <p> Sub-title </p>
-
-
-
-// JSX - JavaScript XML
-var template = (
-    <div>
-        <h1> There should be only 1 single root element !! </h1> 
-        <p> both heading and paragraph tag are now included within the div single root element. If DIV element is not added then 
-            we will endup with two root elements H1 and P tags and it will give compile error </p>
-    </div>
-    );
-var appRoot = document.getElementById("app");
-
-var user = {
-    name: 'Sanjay',
-    age: 10,
-    address: 'Kogarah',
-    options: ['Nepal', 'Australia']
-};
-
-function getLocation(location){
-    if(location){
-        return <p>Location: {location}</p>;
+class IndecisionApp extends React.Component {
+    render()
+    {
+        const subtitle = 'This is my sub-title !!';
+        const options = ['cricket', 'hockey', 'basketball', 'football'];
+        return (
+            <div>
+                <Header title="My World !!" subtitle={subtitle}/>
+                <Action />
+                <Options options={options}/>
+            </div>
+        );
     }
 }
 
+class Header extends React.Component {
+    render() {
+        return (
+        <div>
+            <h1> {this.props.title} </h1>
+            <p>{this.props.subtitle} </p>
+        </div>
+        );
+    }
+}
 
-var newTemplate = (
-    <div>
-        <p> Name : {user.name ? user.name : "Unknown"} </p>
-        { user.age > 20 && <p> Age: {user.age} </p>} 
-        { getLocation(user.address)}  
-        { user.options.length > 0 && 
-            <ol> 
-                <li>
-                    { user.options[0]}
-                </li>
-                <li>
-                { user.options[1]}
-                </li>
-            </ol>
-        }
-    </div>
-    );
+class Action extends React.Component {
+    render(){
+        return (
+        <p> Body </p>
+        );
+    }
+}
 
-ReactDOM.render(newTemplate, appRoot);
+class Options extends React.Component{
+    render() {
+        return (
+            <div>
+                <p> {this.props.options.length}</p>
+                <ol>
+                    {
+                        this.props.options.map((option) => <li key={option}> {option} </li>)
+                    }
+                </ol>
+            </div>
+        );
+    }
+}
+
+class Option extends React.Component{
+    render() {
+        return (
+            <li>
+                {this.props.option}
+            </li>
+        );
+    }
+}
+
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));

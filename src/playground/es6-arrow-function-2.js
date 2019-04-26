@@ -1,6 +1,6 @@
 const userDetails = {
     name: "Sanz",
-    cities: "['NewYork', 'Sydney', 'Tokyo']",
+    cities: ['NewYork', 'Sydney', 'Tokyo'],
     details : function(){
         return this.name + this.cities;
     }
@@ -19,4 +19,8 @@ const userDetails2 = {
 };
 
 console.log(userDetails2.printFavPlaces());
+
+
+
+
 
