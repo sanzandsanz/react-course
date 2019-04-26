@@ -8,75 +8,21 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var IndecisionApp = function (_React$Component) {
-    _inherits(IndecisionApp, _React$Component);
+var PlayerApp = function (_React$Component) {
+    _inherits(PlayerApp, _React$Component);
 
-    function IndecisionApp(props) {
-        _classCallCheck(this, IndecisionApp);
+    function PlayerApp(props) {
+        _classCallCheck(this, PlayerApp);
 
-        var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
-
-        _this.subtitle = 'This is my sub-title';
-        _this.handleDeletOption = _this.handleDeletOption.bind(_this);
-        _this.handleAddingNewOption = _this.handleAddingNewOption.bind(_this);
+        var _this = _possibleConstructorReturn(this, (PlayerApp.__proto__ || Object.getPrototypeOf(PlayerApp)).call(this, props));
 
         _this.state = {
-            options: ['cricket', 'hockey', 'basketball', 'football']
+            players: ['sanjay']
         };
         return _this;
     }
 
-    _createClass(IndecisionApp, [{
-        key: 'handleAddingNewOption',
-        value: function handleAddingNewOption(option) {
-            console.log('handle Add Option');
-            console.log(option);
-
-            this.setState(function (prevState) {
-                return {
-                    options: prevState.options.concat(option)
-                };
-            });
-        }
-    }, {
-        key: 'handleDeletOption',
-        value: function handleDeletOption() {
-            var _this2 = this;
-
-            this.setState(function () {
-                console.log(_this2.state.options);
-                return {
-                    options: []
-                };
-            });
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return React.createElement(
-                'div',
-                null,
-                React.createElement(Header, { title: 'My World !!', subtitle: this.subtitle }),
-                React.createElement(Options, { options: this.state.options, handleDeletOption: this.handleDeletOption }),
-                React.createElement(Action, null),
-                React.createElement(AddOption, { handleAddingNewOption: this.handleAddingNewOption })
-            );
-        }
-    }]);
-
-    return IndecisionApp;
-}(React.Component);
-
-var Header = function (_React$Component2) {
-    _inherits(Header, _React$Component2);
-
-    function Header() {
-        _classCallCheck(this, Header);
-
-        return _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).apply(this, arguments));
-    }
-
-    _createClass(Header, [{
+    _createClass(PlayerApp, [{
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -85,167 +31,65 @@ var Header = function (_React$Component2) {
                 React.createElement(
                     'h1',
                     null,
-                    ' ',
-                    this.props.title,
-                    ' '
+                    'List of Player'
                 ),
-                React.createElement(
-                    'p',
-                    null,
-                    this.props.subtitle,
-                    ' '
-                )
+                this.state.players,
+                React.createElement(Player, null)
             );
         }
     }]);
 
-    return Header;
+    return PlayerApp;
 }(React.Component);
 
-var Action = function (_React$Component3) {
-    _inherits(Action, _React$Component3);
+var Player = function (_React$Component2) {
+    _inherits(Player, _React$Component2);
 
-    function Action() {
-        _classCallCheck(this, Action);
+    function Player(props) {
+        _classCallCheck(this, Player);
 
-        return _possibleConstructorReturn(this, (Action.__proto__ || Object.getPrototypeOf(Action)).apply(this, arguments));
+        var _this2 = _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).call(this, props));
+
+        _this2.state = {
+            name: ''
+        };
+        return _this2;
     }
 
-    _createClass(Action, [{
-        key: 'render',
-        value: function render() {
-            return React.createElement(
-                'div',
-                null,
-                ' Action'
-            );
-        }
-    }]);
-
-    return Action;
-}(React.Component);
-
-var Options = function (_React$Component4) {
-    _inherits(Options, _React$Component4);
-
-    function Options() {
-        _classCallCheck(this, Options);
-
-        return _possibleConstructorReturn(this, (Options.__proto__ || Object.getPrototypeOf(Options)).apply(this, arguments));
-    }
-
-    _createClass(Options, [{
-        key: 'handleAddOption',
-        value: function handleAddOption(e) {
-            e.preventDefault();
-
-            var option = 'Rugby';
-
-            if (option) {
-                this.props.handleAddOption(option);
-            }
-        }
-    }, {
-        key: 'render',
-        value: function render() {
-            return React.createElement(
-                'div',
-                null,
-                React.createElement(
-                    'p',
-                    null,
-                    ' ',
-                    this.props.options.length
-                ),
-                React.createElement(
-                    'ol',
-                    null,
-                    this.props.options.map(function (option) {
-                        return React.createElement(
-                            'li',
-                            { key: option },
-                            ' ',
-                            option,
-                            ' '
-                        );
-                    })
-                ),
-                React.createElement(
-                    'button',
-                    { onClick: this.props.handleDeletOption },
-                    ' DeleteAll '
-                )
-            );
-        }
-    }]);
-
-    return Options;
-}(React.Component);
-
-var Option = function (_React$Component5) {
-    _inherits(Option, _React$Component5);
-
-    function Option() {
-        _classCallCheck(this, Option);
-
-        return _possibleConstructorReturn(this, (Option.__proto__ || Object.getPrototypeOf(Option)).apply(this, arguments));
-    }
-
-    _createClass(Option, [{
-        key: 'render',
-        value: function render() {
-            return React.createElement(
-                'li',
-                null,
-                this.props.option
-            );
-        }
-    }]);
-
-    return Option;
-}(React.Component);
-
-var AddOption = function (_React$Component6) {
-    _inherits(AddOption, _React$Component6);
-
-    function AddOption(props) {
-        _classCallCheck(this, AddOption);
-
-        var _this7 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
-
-        _this7.onAddingNewOption = _this7.onAddingNewOption.bind(_this7);
-        return _this7;
-    }
-
-    _createClass(AddOption, [{
-        key: 'onAddingNewOption',
-        value: function onAddingNewOption(e) {
+    _createClass(Player, [{
+        key: 'addPlayer',
+        value: function addPlayer(e) {
+            console.log('form submitted');
             e.preventDefault();
 
             console.log(e.target);
-            var option = e.target.elements.option.value.trim();
-            console.log(option);
-            if (option) {
-                this.props.handleAddingNewOption(option); // handleAddingNewOption define in the attribute
-            }
+            console.log(e.target.elements);
+            var playerName = e.target.elements.playername;
+
+            alert(playerName);
+            alert('player added');
         }
     }, {
         key: 'render',
         value: function render() {
             return React.createElement(
-                'form',
-                { onSubmit: this.onAddingNewOption },
-                React.createElement('input', { type: 'text', name: 'option' }),
+                'div',
+                null,
                 React.createElement(
-                    'button',
-                    null,
-                    ' Add Option'
+                    'form',
+                    { onSubmit: this.addPlayer },
+                    React.createElement('input', { type: 'text', name: 'playername' }),
+                    React.createElement(
+                        'button',
+                        null,
+                        ' Add Player'
+                    )
                 )
             );
         }
     }]);
 
-    return AddOption;
+    return Player;
 }(React.Component);
 
-ReactDOM.render(React.createElement(IndecisionApp, null), document.getElementById('app'));
+ReactDOM.render(React.createElement(PlayerApp, null), document.getElementById('app'));

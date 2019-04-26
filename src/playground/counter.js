@@ -1,3 +1,5 @@
+class Test extends React.Component}
+rconst
 class Counter extends React.Component {
     constructor(props){
         super(props);
