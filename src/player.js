@@ -21,7 +21,6 @@ class PlayerApp extends React.Component {
 class Player extends React.Component {
     constructor(props) {
         super(props)
-
         
         this.state = {
             name: ''
@@ -34,10 +33,13 @@ class Player extends React.Component {
 
         console.log(e.target);
         console.log(e.target.elements);
+        
         const playerName = e.target.elements.playername;
 
         alert(playerName);
         alert('player added');
+
+        this.setState()
     }
 
     render(){
