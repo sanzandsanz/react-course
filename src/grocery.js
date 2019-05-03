@@ -1,3 +1,16 @@
+const ListItems = (props) => {
+    return (
+        <ul>
+            {
+                props.items.map((f) =>
+                    <li key={f}> 
+                        {f} <DeleteButton handleDeleteItem={props.handleDeleteItem} deleteItem={f} />
+                    </li>)
+            }
+        </ul>
+    );
+}
+
 const Form = (props) => {
     return (
         <div>
@@ -10,13 +23,15 @@ const Form = (props) => {
     );
 }
 
+
 const DeleteButton = (props) => {
     return (
         <div>
-            <a href="#" onClick={() => { props.executeDeleteItem(props.deleteItem); }}> Delete </a>
+            <a href="#" onClick={() => { props.handleDeleteItem(props.deleteItem); }}> Delete </a>
         </div>
     );
 };
+
 
 const DeleteAll = (props) => {
     return (
@@ -28,13 +43,12 @@ const DeleteAll = (props) => {
 
 
 class Grocery extends React.Component {
-
     constructor(props) {
         super(props);
 
         this.handleAddItem = this.handleAddItem.bind(this);
         this.handleRemoveAllItems = this.handleRemoveAllItems.bind(this);
-        this.executeDeleteItem = this.executeDeleteItem.bind(this);
+        this.handleDeleteItem = this.handleDeleteItem.bind(this);
 
         this.state = {
             items: ["apple", "ball"]
@@ -70,7 +84,7 @@ class Grocery extends React.Component {
     }
 
 
-    executeDeleteItem(item) {
+    handleDeleteItem(item) {
         console.log('item to be deleted ' + item);
 
         this.setState((prevState) => {
@@ -92,26 +106,16 @@ class Grocery extends React.Component {
             });
     }
 
-
+    
     render() {
-
         return (
             <div>
-                <ul>
-                    {
-                        this.state.items.map((f) =>
-                            <li key={f} value={f}> {f} <DeleteButton executeDeleteItem={this.executeDeleteItem} deleteItem={f} />
-                            </li>)
-                    }
-                </ul>
-
+                <ListItems handleDeleteItem={this.handleDeleteItem} items={this.state.items}/>
                 <Form handleAddItem={this.handleAddItem} />
-                <DeleteAll handleRemoveAllItems={this.handleRemoveAllItems} />
+                <DeleteAll handleDeleteAllItems={this.handleRemoveAllItems} />
             </div>
         )
     }
 }
-
-
 
 ReactDOM.render(<Grocery name="grocery" />, document.getElementById('app'));

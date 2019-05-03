@@ -8,6 +8,22 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var ListItems = function ListItems(props) {
+    return React.createElement(
+        "ul",
+        null,
+        props.items.map(function (f) {
+            return React.createElement(
+                "li",
+                { key: f },
+                f,
+                " ",
+                React.createElement(DeleteButton, { handleDeleteItem: props.handleDeleteItem, deleteItem: f })
+            );
+        })
+    );
+};
+
 var Form = function Form(props) {
     return React.createElement(
         "div",
@@ -33,7 +49,7 @@ var DeleteButton = function DeleteButton(props) {
         React.createElement(
             "a",
             { href: "#", onClick: function onClick() {
-                    props.executeDeleteItem(props.deleteItem);
+                    props.handleDeleteItem(props.deleteItem);
                 } },
             " Delete "
         )
@@ -62,7 +78,7 @@ var Grocery = function (_React$Component) {
 
         _this.handleAddItem = _this.handleAddItem.bind(_this);
         _this.handleRemoveAllItems = _this.handleRemoveAllItems.bind(_this);
-        _this.executeDeleteItem = _this.executeDeleteItem.bind(_this);
+        _this.handleDeleteItem = _this.handleDeleteItem.bind(_this);
 
         _this.state = {
             items: ["apple", "ball"]
@@ -102,8 +118,8 @@ var Grocery = function (_React$Component) {
             console.log('deleting');
         }
     }, {
-        key: "executeDeleteItem",
-        value: function executeDeleteItem(item) {
+        key: "handleDeleteItem",
+        value: function handleDeleteItem(item) {
             console.log('item to be deleted ' + item);
 
             this.setState(function (prevState) {
@@ -130,27 +146,12 @@ var Grocery = function (_React$Component) {
     }, {
         key: "render",
         value: function render() {
-            var _this4 = this;
-
             return React.createElement(
                 "div",
                 null,
-                React.createElement(
-                    "ul",
-                    null,
-                    this.state.items.map(function (f) {
-                        return React.createElement(
-                            "li",
-                            { key: f, value: f },
-                            " ",
-                            f,
-                            " ",
-                            React.createElement(DeleteButton, { executeDeleteItem: _this4.executeDeleteItem, deleteItem: f })
-                        );
-                    })
-                ),
+                React.createElement(ListItems, { handleDeleteItem: this.handleDeleteItem, items: this.state.items }),
                 React.createElement(Form, { handleAddItem: this.handleAddItem }),
-                React.createElement(DeleteAll, { handleRemoveAllItems: this.handleRemoveAllItems })
+                React.createElement(DeleteAll, { handleDeleteAllItems: this.handleRemoveAllItems })
             );
         }
     }]);
