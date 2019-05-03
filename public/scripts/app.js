@@ -8,91 +8,154 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var Fruits = function (_React$Component) {
-    _inherits(Fruits, _React$Component);
+var Form = function Form(props) {
+    return React.createElement(
+        "div",
+        null,
+        React.createElement(
+            "form",
+            { onSubmit: props.handleAddItem },
+            React.createElement("input", { type: "text", name: "itemname" }),
+            React.createElement("br", null),
+            React.createElement(
+                "button",
+                null,
+                " Add "
+            )
+        )
+    );
+};
 
-    function Fruits(props) {
-        _classCallCheck(this, Fruits);
+var DeleteButton = function DeleteButton(props) {
+    return React.createElement(
+        "div",
+        null,
+        React.createElement(
+            "a",
+            { href: "#", onClick: function onClick() {
+                    props.executeDeleteItem(props.deleteItem);
+                } },
+            " Delete "
+        )
+    );
+};
 
-        var _this = _possibleConstructorReturn(this, (Fruits.__proto__ || Object.getPrototypeOf(Fruits)).call(this, props));
+var DeleteAll = function DeleteAll(props) {
+    return React.createElement(
+        "div",
+        null,
+        React.createElement(
+            "button",
+            { onClick: props.handleRemoveAllItems },
+            " Remove All"
+        )
+    );
+};
+
+var Grocery = function (_React$Component) {
+    _inherits(Grocery, _React$Component);
+
+    function Grocery(props) {
+        _classCallCheck(this, Grocery);
+
+        var _this = _possibleConstructorReturn(this, (Grocery.__proto__ || Object.getPrototypeOf(Grocery)).call(this, props));
 
         _this.handleAddItem = _this.handleAddItem.bind(_this);
+        _this.handleRemoveAllItems = _this.handleRemoveAllItems.bind(_this);
+        _this.executeDeleteItem = _this.executeDeleteItem.bind(_this);
+
         _this.state = {
             items: ["apple", "ball"]
         };
         return _this;
     }
 
-    _createClass(Fruits, [{
+    _createClass(Grocery, [{
         key: "handleAddItem",
         value: function handleAddItem(event) {
             var _this2 = this;
 
+            console.log(event);
             event.preventDefault();
 
-            var fruit = event.target.elements.fruitname.value;
-            var array = this.state.items.push(fruit);
-            console.log(array);
+            var item = event.target.elements.itemname.value;
 
-            this.setState({ items: array }, function () {
-                console.log(_this2.state.items);
+            this.setState(function (prevState, p) {
+                console.log('prvious state');
+                console.log(prevState.items);
+
+                if (!prevState.items.includes(item)) {
+                    _this2.state.items.push(item);
+                }
+
+                return {
+                    items: _this2.state.items
+                };
             });
 
             console.log(this.state.items);
         }
+    }, {
+        key: "handleDeleteItem",
+        value: function handleDeleteItem(event) {
+            event.preventDefault();
+            console.log('deleting');
+        }
+    }, {
+        key: "executeDeleteItem",
+        value: function executeDeleteItem(item) {
+            console.log('item to be deleted ' + item);
 
-        // componentDidMount() {
-        //     console.log('component mount');
-        // }
+            this.setState(function (prevState) {
+                var updatedItems = prevState.items.filter(function (i) {
+                    return i != item;
+                });
+                console.log(updatedItems);
+                return {
+                    "items": updatedItems
+                };
+            });
+        }
+    }, {
+        key: "handleRemoveAllItems",
+        value: function handleRemoveAllItems() {
+            var _this3 = this;
 
-        // componentWillMount() {
-        //   console.log('component will mount');
-        // }
+            console.log('remove all');
 
-        // componentDidUpdate(){
-        //     console.log('component update');
-        // }
-
+            this.setState({ items: [] }, function () {
+                console.log(_this3.state.items);
+            });
+        }
     }, {
         key: "render",
         value: function render() {
+            var _this4 = this;
+
             return React.createElement(
                 "div",
                 null,
-                React.createElement(
-                    "h1",
-                    null,
-                    " Fruits "
-                ),
                 React.createElement(
                     "ul",
                     null,
                     this.state.items.map(function (f) {
                         return React.createElement(
                             "li",
-                            { key: f },
+                            { key: f, value: f },
                             " ",
                             f,
-                            " "
+                            " ",
+                            React.createElement(DeleteButton, { executeDeleteItem: _this4.executeDeleteItem, deleteItem: f })
                         );
                     })
                 ),
-                React.createElement(
-                    "form",
-                    { onSubmit: this.handleAddItem },
-                    React.createElement("input", { type: "text", name: "fruitname" }),
-                    React.createElement("br", null),
-                    React.createElement(
-                        "button",
-                        null,
-                        " Add "
-                    )
-                )
+                React.createElement(Form, { handleAddItem: this.handleAddItem }),
+                React.createElement(DeleteAll, { handleRemoveAllItems: this.handleRemoveAllItems })
             );
         }
     }]);
 
-    return Fruits;
+    return Grocery;
 }(React.Component);
 
-ReactDOM.render(React.createElement(Fruits, null), document.getElementById('app'));
+ReactDOM.render(React.createElement(Grocery, { name: "grocery" }), document.getElementById('app'));
